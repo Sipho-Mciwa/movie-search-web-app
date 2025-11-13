@@ -1,0 +1,19 @@
+.movieDes {
+   overflow-y: auto;
+   height: 150px;
+}
+
+.miniInfo {
+   width: 100%;
+   border-radius: 5px;
+   /* transform: scale(1); */
+   transition: background-color 0.3s ease-in, transform 0.2s ease-out;
+}
+
+.miniInfo:hover {
+   border-top: 3px solid black;
+   color: white;
+   background-color: #0d253f;
+   cursor: pointer;
+   transform: scale(1.1);
+}

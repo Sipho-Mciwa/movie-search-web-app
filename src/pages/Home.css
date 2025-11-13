@@ -1,0 +1,26 @@
+header {
+    position: fixed;
+    background-color:  #0d253f;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 99%;
+    height: 85px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.web-title {
+    font-size: x-large;
+    font-weight: bolder;
+    color: white;
+}
+
+.loadingLogo {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 25%;
+}
