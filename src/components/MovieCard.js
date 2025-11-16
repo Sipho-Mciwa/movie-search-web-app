@@ -2,7 +2,7 @@ import './MovieCard.css';
 import MovieModal from './MovieModal';
 import { useState } from 'react';
 
-export default function MovieCard({movieTitle, movieDescription, moviePoster, releaseDate, language, popularity}) {
+export default function MovieCard({movieTitle, movieDescription, moviePoster, releaseDate, language, popularity, voteAverage}) {
     
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
@@ -10,15 +10,15 @@ export default function MovieCard({movieTitle, movieDescription, moviePoster, re
 
 
     return (
-        <div className="movieCard">
-            <img src={`http://image.tmdb.org/t/p/w185/${moviePoster}`} alt="test"/>
-            <div className='miniInfo' onClick={handleOpen} >
+        <div className="miniInfo">
+            <div onClick={handleOpen} >
+                <img src={`http://image.tmdb.org/t/p/w185/${moviePoster}`} alt="test"/>
                 <h2>{`${movieTitle} (${language})`}</h2>
                 <h3>{`Release Date: ${releaseDate}`}</h3>
             </div>
             <MovieModal isOpened={open} handleClose={handleClose} movieTitle={movieTitle} 
                 movieDescription={movieDescription} moviePoster={moviePoster} releaseDate={releaseDate} 
-                language={language} popularity={popularity}/>
+                language={language} popularity={popularity} voteAverage={voteAverage}/>
         </div>
     );
 }

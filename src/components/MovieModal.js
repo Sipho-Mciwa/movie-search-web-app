@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Button from '@mui/material/Button';
+import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 import { useSpring, animated } from '@react-spring/web';
 
@@ -61,8 +61,23 @@ const style = {
   borderRadius: "5px",
 };
 
-export default function MovieModal({isOpened, handleClose, movieTitle, movieDescription, moviePoster, releaseDate, language, popularity}) {
-  
+export default function MovieModal({isOpened, handleClose, movieTitle, movieDescription, moviePoster, releaseDate, language, popularity, voteAverage}) {
+
+    const calculateRating = (voteAverage, popularity) => {
+    // Normalize vote average (TMDb vote_average is 0–10 → convert to 0–5)
+    const normalizedVote = voteAverage / 2;
+
+    // Normalize popularity (cap it to a max of 5)
+    const normalizedPopularity = Math.min(popularity / 200, 5); 
+    // ^ Adjust divisor (200) to control scaling — smaller = more effect from popularity
+
+    // Weighted average: 70% rating, 30% popularity
+    const combinedScore = (normalizedVote * 0.7) + (normalizedPopularity * 0.3);
+
+    // Cap final score at 5 and round to one decimal
+    return Math.min(combinedScore, 5).toFixed(1);
+    };
+
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -82,7 +97,7 @@ export default function MovieModal({isOpened, handleClose, movieTitle, movieDesc
         <Fade in={isOpened}>
           <Box sx={style}>
 
-            <div style={{justifyContent: 'space-evenly', alignItems: 'center', display: 'flex'}}>
+            <div style={{justifyContent: 'space-evenly', alignItems: 'center', display: 'flex', margin: '5px'}}>
                 <img src={`http://image.tmdb.org/t/p/w92/${moviePoster}`} alt="movie-poster"/>
                 <Typography id="spring-modal-title" variant="h6" component="h2" textAlign={'left'} fontWeight={'bold'} color=''>
                 {movieTitle}
@@ -92,9 +107,7 @@ export default function MovieModal({isOpened, handleClose, movieTitle, movieDesc
                     <Typography fontWeight={'bold'}>
                         {`Language: ${language}`}
                     </Typography>
-                    <Typography fontWeight={'bold'}>
-                        {`Popularity: ${Math.floor(popularity)}`}
-                    </Typography>
+                    <Rating name="half-rating-read" value={calculateRating(voteAverage, popularity)} precision={0.5} readOnly />
                 </Typography>
             </div>
             <br style={{border: '1px solid black'}}/>

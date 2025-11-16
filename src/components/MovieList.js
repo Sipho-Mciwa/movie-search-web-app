@@ -9,7 +9,7 @@ import './MovieList.css';
 export default function MovieList({movies}) {
 
     const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: '#fff',
+        
         ...theme.typography.body2,
         padding: theme.spacing(2),
         textAlign: 'center',
@@ -35,7 +35,7 @@ export default function MovieList({movies}) {
                             <MovieCard movieTitle={movie['original_title']} 
                                 movieDescription={movie['overview']} moviePoster={movie['poster_path']} 
                                 releaseDate={movie['release_date']} language={movie['original_language']} 
-                                popularity={movie['popularity']}/>
+                                popularity={movie['popularity']} voteAverage={movie['vote_average']}/>
                         </Item>
                     </Grid>
                 ))}

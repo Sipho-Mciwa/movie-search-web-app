@@ -1,22 +1,26 @@
 import SearchBar from "../components/SearchBar";
-import {  useState } from 'react';
+import {  useState, useEffect } from 'react';
 import './Home.css'
-import { fetchMovies } from '../services/api';
+import { fetchMovies, fetchPopularMovies } from '../services/api';
 import MovieList from "../components/MovieList";
 import { OrbitProgress } from "react-loading-indicators";
+
+
+
 
 
 export default function Home() {
 
     const [movies, setMovies] = useState([]);
+    // const [popularMovies, setPopularMovies] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
 
-    const getMovies = async () => {
+    const getMovies = async (userInput) => {
         try {
             setLoading(true);
-            const data = await fetchMovies();
+            const data = await fetchMovies(userInput);
             setMovies(data.results);
         } catch (error) {
             setError(error);
@@ -27,7 +31,16 @@ export default function Home() {
         
     }
 
-    
+   
+    useEffect(() => {
+        const loadDefaultPage = async () => {
+            const data = await fetchPopularMovies();
+            setMovies(data.results);
+        }
+
+        loadDefaultPage();
+    }, []);
+
     
     return (<>
         <header>
@@ -36,9 +49,12 @@ export default function Home() {
                 <SearchBar getMovies={getMovies} />
             </div> 
         </header>
-        {loading ? <div className="loadingLogo">
-            <OrbitProgress color="#0d253f" size="medium" />
-        </div> : <MovieList movies={movies}/>}
+        <div>
+            {/* <Popular/> */}
+            {loading ? <div className="loadingLogo">
+                <OrbitProgress color="#0d253f" size="medium" />
+            </div> : <MovieList movies={movies}/>}
+        </div>
         
     </>);
 }
