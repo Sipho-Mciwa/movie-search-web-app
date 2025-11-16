@@ -12,7 +12,7 @@ export default function MovieCard({movieTitle, movieDescription, moviePoster, re
     return (
         <div className="miniInfo">
             <div onClick={handleOpen} >
-                <img src={`http://image.tmdb.org/t/p/w185/${moviePoster}`} alt="test"/>
+                <img src={`http://image.tmdb.org/t/p/w185/${moviePoster}`} alt={`${movieTitle}-Poster`}/>
                 <h2>{`${movieTitle} (${language})`}</h2>
                 <h3>{`Release Date: ${releaseDate}`}</h3>
             </div>

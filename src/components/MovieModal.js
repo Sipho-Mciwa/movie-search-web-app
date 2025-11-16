@@ -59,6 +59,7 @@ const style = {
   boxShadow: 24,
   p: 4,
   borderRadius: "5px",
+  justifyContent: 'space-between',
 };
 
 export default function MovieModal({isOpened, handleClose, movieTitle, movieDescription, moviePoster, releaseDate, language, popularity, voteAverage}) {

@@ -29,9 +29,9 @@ export default function MovieList({movies}) {
         <div className="movieList">
             {movies.length !== 0 ?  
             <Grid container columns={{sm: 2, md: 4, lg: 8}} style={{padding: '5px'}} justifyContent={'center'} >
-                {Array.from(movies).map((movie) => (
-                    <Grid size={1.5}>
-                        <Item >
+                {movies.map((movie, index) => (
+                    <Grid size={1.5} key={index}>
+                        <Item key={index}>
                             <MovieCard movieTitle={movie['original_title']} 
                                 movieDescription={movie['overview']} moviePoster={movie['poster_path']} 
                                 releaseDate={movie['release_date']} language={movie['original_language']} 

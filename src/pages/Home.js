@@ -12,7 +12,6 @@ import { OrbitProgress } from "react-loading-indicators";
 export default function Home() {
 
     const [movies, setMovies] = useState([]);
-    // const [popularMovies, setPopularMovies] = useState([])
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -46,11 +45,10 @@ export default function Home() {
         <header>
             <div className="header-container">
                 <p className="web-title">Movie Search App</p>
-                <SearchBar getMovies={getMovies} />
+                <SearchBar getMovies={getMovies} fetchMovies={fetchMovies}/>
             </div> 
         </header>
         <div>
-            {/* <Popular/> */}
             {loading ? <div className="loadingLogo">
                 <OrbitProgress color="#0d253f" size="medium" />
             </div> : <MovieList movies={movies}/>}
